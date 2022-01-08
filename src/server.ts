@@ -1,7 +1,9 @@
+import 'express-async-errors'
 import express from "express";
 import MongoConnection from "./database/mongoConnection";
 import routes from './routes'
 import cors from 'cors'
+import { globalErrors } from "./middlewares/globalErrors";
 const app = express()
 
 
@@ -12,11 +14,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 
+
 MongoConnection()
 
 app.use(routes);
 
-
+app.use(globalErrors)
 
 
 

@@ -6,6 +6,7 @@ const MongoConnection = async () => {
     await mongoose.connect(environmentVariables.MONGO_CONNECTION)
     console.log('💾:Database Connected')
   } catch (error) {
+    console.log(environmentVariables.MONGO_CONNECTION)
     console.error(error)
     process.exit()
   }
