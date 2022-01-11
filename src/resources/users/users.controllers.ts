@@ -1,29 +1,37 @@
 import { NextFunction, Response, Request } from "express"
 import { IUsers, UsersModel } from "../../database/Model/Users";
-import { usersServiceCreateJWT, usersServiceCreateUser, usersServiceFindOne } from "../../resources/users/users.services";
+import {  usersServiceCreateUser, usersServiceFindOne } from "../../resources/users/users.services";
+import {  tokenServiceCreateJWT, tokenServiceCreateRefreshToken } from "../../resources/token/token.services";
+import {saveTokensInCookies } from "../utils/tokensToCookies";
 
-export const generateJWT = (req:Request,res:Response,next:NextFunction) =>{
+export const userLogin = async (req:Request,res:Response,next:NextFunction) =>{
     const {user} = res.locals
-    const token = usersServiceCreateJWT(user)
-  
+    
+    const token = tokenServiceCreateJWT(user)
+    const refreshToken = await tokenServiceCreateRefreshToken(user)
+
+    saveTokensInCookies(token, refreshToken, res)
+    
     return res.status(200).send(token)
 }
 
 export const createUser = async (req:Request,res:Response,next:NextFunction)=>{
   const {username, email, password}:IUsers = req.body
-
   try {
-    const user = await usersServiceCreateUser({username, email, password})
+    const {id} = await usersServiceCreateUser({username, email, password})
 
-    if(user.id){
-      const token = usersServiceCreateJWT({username:user.username, email:user.email, id:user.id})
-      return res.status(201).send(token)
+    if(id){
+      const token = tokenServiceCreateJWT({id})
+
+      const refreshToken = await tokenServiceCreateRefreshToken({id})
+
+      saveTokensInCookies(token, refreshToken, res)
+      
+      return res.status(201).send((token))
     } else{
       throw new Error;
     }
   } catch (error) {
     next(error)
   }
-
- 
 }

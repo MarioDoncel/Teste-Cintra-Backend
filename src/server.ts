@@ -4,15 +4,17 @@ import MongoConnection from "./database/mongoConnection";
 import routes from './routes'
 import cors from 'cors'
 import { globalErrors } from "./middlewares/globalErrors";
+import cookieParser from 'cookie-parser'
 const app = express()
 
 
 const PORT = 5000;
 const URL = 'http://localhost';
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors({ origin:true, credentials:true }))
 
 
 MongoConnection()

@@ -6,6 +6,7 @@ import { usersServiceLogIn } from "../resources/users/users.services";
 
 export default async function basicAuth(req:Request,res:Response,next:NextFunction){
   const authHeader = req.headers.authorization
+  
   if (!authHeader) throw new AppError({message:"Header Authorization not send.", statusCode:400});
   
   const [authType, base64Data] = authHeader.split(' ')

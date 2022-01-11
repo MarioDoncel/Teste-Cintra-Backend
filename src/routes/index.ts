@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import userRoutes from './users'
+import tokenRoutes from './token'
 
 const routes = Router()
 
@@ -8,5 +9,6 @@ routes.get('/', (req:Request,res:Response,next:NextFunction)=>{
 })
 
 routes.use('/users', userRoutes)
+routes.use('/token', tokenRoutes)
 
 export default routes
