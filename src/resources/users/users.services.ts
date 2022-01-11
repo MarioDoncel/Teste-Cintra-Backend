@@ -18,9 +18,19 @@ export const usersServiceLogIn = async ({email, password}:IUsersLogIn) => {
   }
   
 }
-export const usersServiceFindOne = async (email:string) => {
+export const usersServiceFindByEmail = async (email:string) => {
   try {
     const user = await UsersModel.findOne({email})
+    return user
+  } catch (error) {
+    console.log(error)
+    throw new Error;
+  }
+  
+}
+export const usersServiceFindById= async (id:string) => {
+  try {
+    const user = await UsersModel.findById(id)
     return user
   } catch (error) {
     console.log(error)
@@ -31,7 +41,7 @@ export const usersServiceFindOne = async (email:string) => {
 
 export const usersServiceCreateUser = async ({username, email, password}:IUsersCreate) =>{
   
-  const userAlreadyExists = await usersServiceFindOne(email)
+  const userAlreadyExists = await usersServiceFindByEmail(email)
   if(userAlreadyExists) throw new AppError({message:"Email is already registered.", statusCode: 400});
   const passwordHash = md5(password)
 

@@ -7,7 +7,7 @@ const refreshTokenExp = now + fifteenDays
 export default {
   jwt: {
       secret: process.env.JWT_SECRET || 'default',
-      expiresIn: '1h',
+      expiresIn: '1s',
   },
   refreshToken: {
     expiresIn: refreshTokenExp
