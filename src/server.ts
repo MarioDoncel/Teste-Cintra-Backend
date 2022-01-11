@@ -5,6 +5,10 @@ import routes from './routes'
 import cors from 'cors'
 import { globalErrors } from "./middlewares/globalErrors";
 import cookieParser from 'cookie-parser'
+import cron from 'node-cron'
+import { RefreshTokenWhiteListModel } from './database/Model/RefreshTokenWhiteList';
+import deleteExpiredRefreshTokens from './config/cronJob';
+
 const app = express()
 
 
@@ -23,6 +27,6 @@ app.use(routes);
 
 app.use(globalErrors)
 
-
+cron.schedule('0 2 * * * ', deleteExpiredRefreshTokens)
 
 app.listen(PORT, () => console.log(`⚡️:Server is listening on ${URL}:${PORT}`));
