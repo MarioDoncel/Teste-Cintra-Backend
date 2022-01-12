@@ -15,7 +15,7 @@ export const validateAndRefreshTokens = async (req: Request, res: Response, next
   if (response.status === 'success') return res.status(201).send(accessToken)
 
   if (response.message !== 'jwt expired') throw new AppError({ message: 'Token invalido.', statusCode: 401 })
-
+  
   const authenticated = await tokenServiceVerifyRefreshToken(refreshToken)
   if (authenticated) {
     const newToken = tokenServiceCreateJWT({ id: refreshToken.userId })

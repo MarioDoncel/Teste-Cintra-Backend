@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn --inspect --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
+    "start": "ts-node src/server.ts",
+    "dev": "ts-node-dev --respawn --inspect --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "play": "nodemon --exec npx ts-node src/server.ts"
   },
   "keywords": [],

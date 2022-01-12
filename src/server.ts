@@ -12,7 +12,7 @@ import deleteExpiredRefreshTokens from './config/cronJob';
 const app = express()
 
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const URL = 'http://localhost';
 
 app.use(cookieParser());
