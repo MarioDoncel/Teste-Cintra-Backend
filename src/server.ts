@@ -21,11 +21,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin:true, credentials:true }))
 
-app.enable('trust proxy'); // optional, not needed for secure cookies
-app.use(session({
-    secret : 'somesecret',
-    proxy : true, // add this when behind a reverse proxy, if you need secure cookies
-}));
 
 
 MongoConnection()

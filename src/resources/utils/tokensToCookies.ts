@@ -8,10 +8,12 @@ export const saveTokensInCookies = (token:string, refreshToken:IRefreshToken, re
 
   res.cookie('accessToken', token, {
     maxAge: fiveYearsInMilisecoonds,
-    httpOnly: true
+    httpOnly: true,
+    sameSite:'none'
   })
   res.cookie('refreshToken', JSON.stringify(refreshToken), {
     maxAge: fiveYearsInMilisecoonds,
-    httpOnly: true
+    httpOnly: true,
+    sameSite:'none'
   })
 }
