@@ -7,6 +7,7 @@ import { globalErrors } from "./middlewares/globalErrors";
 import cookieParser from 'cookie-parser'
 import cron from 'node-cron'
 import { RefreshTokenWhiteListModel } from './database/Model/RefreshTokenWhiteList';
+import session from 'express-session'
 import deleteExpiredRefreshTokens from './config/cronJob';
 
 const app = express()
@@ -19,6 +20,12 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin:true, credentials:true }))
+
+app.enable('trust proxy'); // optional, not needed for secure cookies
+app.use(session({
+    secret : 'somesecret',
+    proxy : true, // add this when behind a reverse proxy, if you need secure cookies
+}));
 
 
 MongoConnection()
