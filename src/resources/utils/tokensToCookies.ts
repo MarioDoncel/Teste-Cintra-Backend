@@ -9,11 +9,13 @@ export const saveTokensInCookies = (token:string, refreshToken:IRefreshToken, re
   res.cookie('accessToken', token, {
     maxAge: fiveYearsInMilisecoonds,
     httpOnly: true,
-    sameSite:'none'
+    sameSite:'none',
+    secure:true
   })
   res.cookie('refreshToken', JSON.stringify(refreshToken), {
     maxAge: fiveYearsInMilisecoonds,
     httpOnly: true,
-    sameSite:'none'
+    sameSite:'none',
+    secure:true
   })
 }
