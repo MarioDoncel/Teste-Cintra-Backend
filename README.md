@@ -1,5 +1,5 @@
 <!-- TITLE -->
-<h1> FEATURED MOVIES </h1> <br>
+<h1> FEATURED MOVIES BACKEND</h1> <br>
 <div align="center">
   <img src="movie-icon.png" alt="Logo" width="300px">
 <br>
