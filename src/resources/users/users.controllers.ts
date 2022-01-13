@@ -48,7 +48,13 @@ export const logoutUser = async (req:Request,res:Response,next:NextFunction)=>{
   } catch (error) {
     console.log(error)
   }
-  res.clearCookie("accessToken")
-  res.clearCookie("refreshToken")
+  res.clearCookie("accessToken",{
+    sameSite:'none',
+    secure:true
+  })
+  res.clearCookie("refreshToken",{
+    sameSite:'none',
+    secure:true
+  })
   return res.status(200).send("success")
 }
